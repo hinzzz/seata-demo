@@ -1,0 +1,19 @@
+spring:
+   application:
+      name: seata-storeage
+   main:
+      allow-bean-definition-overriding: true
+   cloud:
+      nacos:
+         discovery:
+            server-addr: 127.0.0.1:8848
+            username: "nacos"
+            password: "nacos"
+            group: SEATA_GROUP
+         config:
+            server-addr: 127.0.0.1:8848
+            username: "nacos"
+            password: "nacos"
+            group: SEATA_GROUP
+server:
+   port: 2003
