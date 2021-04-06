@@ -9,7 +9,9 @@ import com.hinz.seata.order.entities.Order;
  */
 public interface OrderService
 {
-    void create(Order order);
+    void create();
 
-    void createTraditionalOrder(Order order);
+    void createNormalOrder();
+
+    void createTraditionalOrder();
 }

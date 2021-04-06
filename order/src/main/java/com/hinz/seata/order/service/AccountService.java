@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * @auther quanhz
  * @create 2020-02-26 15:22
  */
-@FeignClient(value = "seata-account-service")
+@FeignClient(value = "seata-account")
 public interface AccountService
 {
     @PostMapping(value = "/account/decrease")

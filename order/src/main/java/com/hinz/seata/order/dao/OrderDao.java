@@ -1,8 +1,7 @@
 package com.hinz.seata.order.dao;
 
 import com.hinz.seata.order.entities.Order;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @auther quanhz
@@ -12,8 +11,12 @@ import org.apache.ibatis.annotations.Param;
 public interface OrderDao
 {
     //1 新建订单
+    @Insert("INSERT INTO `t_order`(`user_id`, `product_id`, `count`, `money`, `status`) " +
+            "VALUES (1, 1, 10, 100, 0)")
+    @SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Long.class)
     void create(Order order);
 
     //2 修改订单状态，从零改为1
-    void update(@Param("userId") Long userId,@Param("status") Integer status);
+    @Update("update t_order set status=#{status} where id = #{id}")
+    void update(@Param("id") Long id,@Param("status") Integer status);
 }

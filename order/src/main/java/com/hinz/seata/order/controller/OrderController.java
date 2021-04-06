@@ -21,17 +21,24 @@ public class OrderController
 
 
     @GetMapping("/order/create")
-    public CommonResult create(Order order)
+    public CommonResult create()
     {
-        orderService.create(order);
+        orderService.create();
+        return CommonResult.ok("订单创建成功");
+    }
+
+    @GetMapping("/order/createNormalOrder")
+    public CommonResult createNormalOrder()
+    {
+        orderService.createNormalOrder();
         return CommonResult.ok("订单创建成功");
     }
 
 
     @GetMapping("/order/createTraditionalOrder")
-    public CommonResult createTraditionalOrder(Order order)
+    public CommonResult createTraditionalOrder()
     {
-        orderService.createTraditionalOrder(order);
+        orderService.createTraditionalOrder();
         return CommonResult.ok("订单创建成功");
     }
 }

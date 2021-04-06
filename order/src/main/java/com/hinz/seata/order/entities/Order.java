@@ -1,6 +1,7 @@
 package com.hinz.seata.order.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * @auther quanhz
  * @create 2020-02-26 15:16
  */
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
