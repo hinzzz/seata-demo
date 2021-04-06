@@ -2,7 +2,6 @@ package com.hinz.seata.order.controller;
 
 
 import com.hinz.commonapi.entities.CommonResult;
-import com.hinz.seata.order.entities.Order;
 import com.hinz.seata.order.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

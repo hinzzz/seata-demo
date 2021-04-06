@@ -1,6 +1,6 @@
 package com.hinz.seata.order.dao;
 
-import com.hinz.seata.order.entities.Order;
+import com.hinz.seata.order.entity.Order;
 import org.apache.ibatis.annotations.*;
 
 /**

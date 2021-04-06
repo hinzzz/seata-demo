@@ -1,4 +1,4 @@
-package com.hinz.seata.account.domain;
+package com.hinz.seata.account.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

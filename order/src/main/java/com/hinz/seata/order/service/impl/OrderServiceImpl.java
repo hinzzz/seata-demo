@@ -1,7 +1,8 @@
 package com.hinz.seata.order.service.impl;
 
+import com.hinz.commonapi.entities.CommonResult;
 import com.hinz.seata.order.dao.OrderDao;
-import com.hinz.seata.order.entities.Order;
+import com.hinz.seata.order.entity.Order;
 import com.hinz.seata.order.service.AccountService;
 import com.hinz.seata.order.service.OrderService;
 
@@ -68,7 +69,7 @@ public class OrderServiceImpl implements OrderService
 
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional(name = "hinzzz-create-order",rollbackFor = Exception.class)
     @Override
     public void createNormalOrder()
     {
@@ -89,7 +90,10 @@ public class OrderServiceImpl implements OrderService
 
         //3 扣减账户
         log.info("----->订单微服务开始调用账户，做扣减Money");
-        accountService.decrease(order.getUserId(),order.getMoney());
+        CommonResult accountResult = accountService.decrease(order.getUserId(), order.getMoney());
+        if(501==accountResult.getCode()){
+            throw new RuntimeException(accountResult.get("msg").toString());
+        }
         log.info("----->订单微服务开始调用账户，做扣减end");
 
         //4 修改订单状态，从零到1,1代表已经完成

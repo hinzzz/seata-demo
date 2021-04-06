@@ -1,4 +1,4 @@
-package com.hinz.seata.storage.domain;
+package com.hinz.seata.storage.entity;
 
 import lombok.Data;
 

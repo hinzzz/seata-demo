@@ -13,6 +13,8 @@ spring:
     initial-size: 10
 
 
+
+
 seata:
   enabled: true
   application-id: seata-account
@@ -35,3 +37,16 @@ seata:
       application: seata-server #TC的实例名称
       server-addr: 127.0.0.1:8848
 
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.hinz.seata.entity
+  global-config:
+    db-config:
+      field-strategy: not-empty
+      id-type: auto
+      db-type: mysql
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    auto-mapping-unknown-column-behavior: none
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

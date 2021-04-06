@@ -1,10 +1,12 @@
 package com.hinz.seata.account.service.impl;
 
 
-import com.hinz.seata.account.dao.AccountDao;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hinz.commonapi.entities.CommonResult;
+import com.hinz.seata.account.mapper.AccountMapper;
+import com.hinz.seata.account.entity.Account;
 import com.hinz.seata.account.service.AccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,21 +17,24 @@ import java.math.BigDecimal;
  * Created by quanhz on 2019/11/11.
  */
 @Service
-public class AccountServiceImpl implements AccountService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);
-
+@Slf4j
+public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
 
     @Resource
-    AccountDao accountDao;
+    AccountMapper accountDao;
 
     /**
      * 扣减账户余额
      */
     @Override
-    public void decrease(Long userId, BigDecimal money) {
-        LOGGER.info("------->account-service中扣减账户余额开始");
+    public CommonResult decrease(Long userId, BigDecimal money) {
+        log.info("------->account-service中扣减账户余额开始");
+        Account account = accountDao.selectById(1);
+        if(money.add(account.getUsed()).compareTo(account.getTotal()) > 0){
+            return CommonResult.error(501,"余额不足");
+        }
         accountDao.decrease(userId, money);
-        LOGGER.info("------->account-service中扣减账户余额结束");
+        log.info("------->account-service中扣减账户余额结束");
+        return  CommonResult.ok();
     }
 }

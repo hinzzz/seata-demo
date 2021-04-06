@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * @create 2019-12-11 16:57
  */
 @Configuration
-@MapperScan({"com.hinz.seata.account.dao"})
+@MapperScan({"com.hinz.seata.account.mapper"})
 public class MyBatisConfig {
 }

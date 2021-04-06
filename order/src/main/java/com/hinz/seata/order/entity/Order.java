@@ -1,4 +1,4 @@
-package com.hinz.seata.order.entities;
+package com.hinz.seata.order.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
