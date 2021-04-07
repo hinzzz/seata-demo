@@ -3,6 +3,7 @@ package com.hinz.seata.order.controller;
 
 import com.hinz.commonapi.entities.CommonResult;
 import com.hinz.seata.order.service.OrderService;
+import io.seata.core.exception.TransactionException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,12 @@ public class OrderController
     @GetMapping("/order/createNormalOrder")
     public CommonResult createNormalOrder()
     {
-        orderService.createNormalOrder();
-        return CommonResult.ok("订单创建成功");
+        try {
+            return orderService.createNormalOrder();
+        } catch (TransactionException e) {
+            e.printStackTrace();
+        }
+        return CommonResult.error("订单创建失败");
     }
 
 

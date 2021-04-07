@@ -7,7 +7,10 @@ import com.hinz.seata.order.service.AccountService;
 import com.hinz.seata.order.service.OrderService;
 
 import com.hinz.seata.order.service.StorageService;
+import io.seata.core.context.RootContext;
+import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
+import io.seata.tm.api.GlobalTransactionContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,8 +74,7 @@ public class OrderServiceImpl implements OrderService
 
     @GlobalTransactional(name = "hinzzz-create-order",rollbackFor = Exception.class)
     @Override
-    public void createNormalOrder()
-    {
+    public CommonResult createNormalOrder() throws TransactionException {
         log.info("----->开始新建订单");
         //1 新建订单
         Order order = Order.builder()
@@ -91,8 +93,15 @@ public class OrderServiceImpl implements OrderService
         //3 扣减账户
         log.info("----->订单微服务开始调用账户，做扣减Money");
         CommonResult accountResult = accountService.decrease(order.getUserId(), order.getMoney());
-        if(501==accountResult.getCode()){
-            throw new RuntimeException(accountResult.get("msg").toString());
+
+        try {
+            if(501==accountResult.getCode()){
+                throw new RuntimeException(accountResult.get("msg").toString());
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            GlobalTransactionContext.reload(RootContext.getXID()).rollback();
+            return CommonResult.error(accountResult.get("msg").toString());
         }
         log.info("----->订单微服务开始调用账户，做扣减end");
 
@@ -102,7 +111,7 @@ public class OrderServiceImpl implements OrderService
         log.info("----->修改订单状态结束");
 
         log.info("----->下订单结束了");
-
+        return CommonResult.ok();
     }
 
     @Transactional(rollbackFor = Exception.class)
