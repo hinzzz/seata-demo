@@ -1,5 +1,6 @@
 package com.hinz.seata.account.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "t_account")
 public class Account {
 
     private Long id;
@@ -28,8 +30,5 @@ public class Account {
      */
     private BigDecimal used;
 
-    /**
-     * 剩余额度
-     */
-    private BigDecimal residue;
+
 }

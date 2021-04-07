@@ -31,6 +31,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         log.info("------->account-service中扣减账户余额开始");
         Account account = accountDao.selectById(1);
         if(money.add(account.getUsed()).compareTo(account.getTotal()) > 0){
+            log.error("余额不足");
             return CommonResult.error(501,"余额不足");
         }
         accountDao.decrease(userId, money);

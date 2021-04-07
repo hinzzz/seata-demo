@@ -20,7 +20,6 @@ public class AccountController {
      */
     @RequestMapping("/account/decrease")
     public CommonResult decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money) {
-        accountService.decrease(userId, money);
-        return CommonResult.ok("扣减账户余额成功！");
+        return accountService.decrease(userId, money);
     }
 }

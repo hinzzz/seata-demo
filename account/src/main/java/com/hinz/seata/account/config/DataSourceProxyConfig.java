@@ -1,6 +1,7 @@
 package com.hinz.seata.account.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.seata.rm.datasource.DataSourceProxy;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -40,12 +41,12 @@ public class DataSourceProxyConfig {
         sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
         return sqlSessionFactoryBean.getObject();
     }*/
-    @Bean
+   /* @Bean
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
         return sqlSessionFactoryBean.getObject();
-    }
+    }*/
 
 }
