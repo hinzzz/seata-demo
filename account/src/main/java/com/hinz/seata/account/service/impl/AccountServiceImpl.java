@@ -6,6 +6,7 @@ import com.hinz.commonapi.entities.CommonResult;
 import com.hinz.seata.account.mapper.AccountMapper;
 import com.hinz.seata.account.entity.Account;
 import com.hinz.seata.account.service.AccountService;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
      */
     @Override
     public CommonResult decrease(Long userId, BigDecimal money) {
+        log.info("account-service txID:{}", RootContext.getXID());
         log.info("------->account-service中扣减账户余额开始");
         Account account = accountDao.selectById(1);
         if(money.add(account.getUsed()).compareTo(account.getTotal()) > 0){

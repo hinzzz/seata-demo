@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * @auther quanhz
@@ -18,6 +19,9 @@ public class OrderController
 {
     @Resource
     private OrderService orderService;
+
+    @Resource
+    private DataSource dataSource;
 
 
     @GetMapping("/order/create")
@@ -31,6 +35,7 @@ public class OrderController
     public CommonResult createNormalOrder()
     {
         try {
+            System.out.println("dataSource = " + dataSource);
             return orderService.createNormalOrder();
         } catch (TransactionException e) {
             e.printStackTrace();

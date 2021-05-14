@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 @RestController
 public class StorageController {
 
     @Autowired
     private StorageService storageService;
+
 
     /**
      * 扣减库存

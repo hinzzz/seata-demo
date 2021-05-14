@@ -75,6 +75,7 @@ public class OrderServiceImpl implements OrderService
     @GlobalTransactional(name = "hinzzz-create-order",rollbackFor = Exception.class)
     @Override
     public CommonResult createNormalOrder() throws TransactionException {
+        log.info("order-service txID:{}", RootContext.getXID());
         log.info("----->开始新建订单");
         //1 新建订单
         Order order = Order.builder()

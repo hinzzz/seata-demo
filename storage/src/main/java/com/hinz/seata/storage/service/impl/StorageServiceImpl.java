@@ -2,6 +2,7 @@ package com.hinz.seata.storage.service.impl;
 
 import com.hinz.seata.storage.dao.StorageDao;
 import com.hinz.seata.storage.service.StorageService;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class StorageServiceImpl implements StorageService {
      */
     @Override
     public void decrease(Long productId, Integer count) {
+        log.info("storage-service txID:{}", RootContext.getXID());
         log.info("------->storage-service中扣减库存开始");
         storageDao.decrease(productId,count);
         log.info("------->storage-service中扣减库存结束");
